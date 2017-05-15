@@ -1,6 +1,6 @@
 # Installation
-* run and map to port 8080
-  * `docker run -p 8080:8080 silesky/vscode-theme-gen:latest`
+* run in detached mode and map local port 80 to container port 8080
+  * `docker run -d -p 80:8080 silesky/vscode-theme-gen:latest`
 
 # Cool commands
 * Delete images with no relationship to any tagged image
