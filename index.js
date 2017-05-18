@@ -1,15 +1,15 @@
-'use strict';
+'use strict'
 
-const express = require('express');
+const express = require('express')
 
 // Constants
 const PORT = 8080
 
 // App
-const app = express();
+const app = express()
 app.get('/', function (req, res) {
-  res.send('Hello world!!!');
-});
+  res.send('Hello world!!!')
+})
 
-app.listen(PORT);
-console.log(`Running on http://localhost:${PORT}`);
+app.listen(PORT)
+console.log(`Running on http://localhost:${PORT}`)
