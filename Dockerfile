@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/node/
-FROM node:4-onbuild
+FROM node:7.10.0
 
 # create working directory on container
 WORKDIR /app

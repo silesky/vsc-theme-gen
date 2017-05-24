@@ -1,14 +1,19 @@
 'use strict'
 
 const express = require('express')
+const { tokenize } = require('./utils')
 
 // Constants
 const PORT = 8080
 
-// App
 const app = express()
-app.get('/', function (req, res) {
+
+app.get('/', (req, res) => {
   res.send('Hello world!!!')
+})
+app.get('/api', (req, res) => {
+  // const token = tokenize("console.log('hello'))")
+  // res.json(token)
 })
 
 app.listen(PORT)

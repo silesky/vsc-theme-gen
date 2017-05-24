@@ -4,4 +4,4 @@ windows:
   - editor:
       panes:
         - sleep 5 && open http://localhost:8888
-        - docker run -d -v ~/projects/vsc-theme-gen:/app -p 8888:8080 silesky/vscode-theme-gen:latest
+        - docker run -it -d -v ~/projects/vsc-theme-gen:/app -p 8888:8080 silesky/vsc-theme-gen:latest

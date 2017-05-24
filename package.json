@@ -5,12 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -L"
+    "start": "nodemon -L",
+    "docker-build": "docker build -t 'silesky/vsc-theme-gen:latest' .",
+    "docker-run-interactive": "docker run -it -v ~/projects/vsc-theme-gen:/app -p 8888:8080 silesky/vsc-theme-gen:latest /bin/bash"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "express": "^4.15.2",
     "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "vscode-textmate": "^3.1.4"
   }
 }
