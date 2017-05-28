@@ -1,5 +1,6 @@
 name: vsctheme
 root: ~/projects/vsc-theme-gen
+pre: code .
 windows:
   - editor:
       panes:
