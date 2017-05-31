@@ -1,34 +1,31 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import config from './config'
+import * as utils from './utils'
 class App extends React.Component {
   constructor () {
     super()
     this.state = {
-      tokens: [],
+      tokens: []
     }
   }
   componentDidMount () {
-    const fetchData = {
-      method: 'POST',
-      body: JSON.stringify({
-        code: 'console.log("hello world")',
-        language: 'js',
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    }
-    fetch(`${config.server}/api/tokenize`, fetchData)
-      .then(res => res.json())
-      .then(tokens => {
-        console.log(tokens)
-        this.setState({ tokens: tokens.msg })
-      })
+    utils
+      .getTokens(`console.log('hi')`)
+      .then(dataWithClassNames => this.setState({ tokens: dataWithClassNames }))
   }
+  onColorizeClick () {}
   render () {
     return (
       <div>
         <h1>Hello World!!</h1>
-        <pre>{this.state.tokens}</pre>
+        <textarea rows='5' />
+        <button onClick={() => this.onColorizeClick()}>COLOR</button>
+        <pre>
+          {this.state.tokens.map(({ classNames, code }, ind) => {
+            return <span key={ind} className={classNames}>{code}</span>
+          })}
+        </pre>
       </div>
     )
   }

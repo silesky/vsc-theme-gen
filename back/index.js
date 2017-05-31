@@ -16,7 +16,7 @@ const allowCrossDomain = function (req, res, next) {
 app.use(bodyParser.json())
 app.use(allowCrossDomain)
 
-const createRes = (success, msg) => ({ success, msg })
+const createRes = (status, data) => ({ status, data })
 // Constants
 const PORT = 8080
 
