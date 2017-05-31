@@ -4,9 +4,17 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-app.use(bodyParser.json())
-
 const { tokenize } = require('./utils')
+
+const allowCrossDomain = function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3001')
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
+  next()
+}
+
+app.use(bodyParser.json())
+app.use(allowCrossDomain)
 
 const createRes = (success, msg) => ({ success, msg })
 // Constants
