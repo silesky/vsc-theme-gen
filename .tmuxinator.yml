@@ -1,6 +1,7 @@
 name: vsc
 root: ~/projects/vsc-theme-gen
 pre: code .
+startup_window: FRONT
 windows:
   - BACK:
       root: ~/projects/vsc-theme-gen/back
