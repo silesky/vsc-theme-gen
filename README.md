@@ -14,6 +14,5 @@ https://www.evernote.com/Home.action#n=21b4dcf2-45f9-4e44-a87d-fb9e653f6f30&ses=
 # Front-end
  * gotcha: webpack-dev-server serves from memory, not from files!
   * this means that `dist/index.bundle.js` will not change, but you can still see preview your changes
- * webpack-dev-server serves from `http://localhost:3001/index.bundle` or
- `http://localhost:3001/webpack-dev-server/index.bundle` (NOT `localhost:3001`)
+ * webpack-dev-server serves from `http://localhost:3001/index.html` or `http://localhost:3001/webpack-dev-server/index.html`
 

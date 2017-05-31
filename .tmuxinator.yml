@@ -10,4 +10,4 @@ windows:
       root: ~/projects/vsc-theme-gen/front
       panes:
         - webpack-dev-server
-        - sleep 5 && open http://localhost:3001/index.bundle
+        - sleep 5 && open http://localhost:3001/webpack-dev-server/index.html
