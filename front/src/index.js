@@ -4,8 +4,8 @@ import * as utils from './utils'
 import Form from './form'
 import uuid from 'uuid'
 
-const createColor = (label, value = '#000FFF') => ({ label, id: uuid(), value })
-const colorsOptions = [
+const createColor = (label, color = '#000FFF') => ({ label, id: uuid(), color })
+const initialColors = [
   createColor('Keyword'),
   createColor('String'),
   createColor('Number'),
@@ -18,7 +18,7 @@ class App extends React.Component {
     this.state = {
       tokens: [],
       inputString: null,
-      colorOptions: colorsOptions,
+      colorOptions: initialColors,
     }
   }
   componentDidMount () {
@@ -37,16 +37,26 @@ class App extends React.Component {
       .getTokens(this.state.inputString)
       .then(tokens => this.setState({ tokens }))
   }
+  changeColor (id, event) {
+    const newColor = event.target.value
+    console.log('newColor', newColor)
+    const newColors = this.state.colorOptions.map((el) => {
+      if (el.id === id) {
+        el.color = newColor
+      }
+      return el
+    });
+    this.setState({ colorOptions: newColors })
+  }
 
   render () {
     return (
       <div>
-
-        <h1>Hello World!!</h1>
-        {this.state.colorOptions.map(({ label, id }) => {
+        <h1>VSCode Theme Color Generator</h1>
+        {this.state.colorOptions.map(({ label, id, color }) => {
           return (
-            <Form label={label} id={id} key={id} />
-            )
+            <Form handleChangeColor={this.changeColor.bind(this, id)} color={color} label={label} id={id} key={id} />
+          )
         })
         }
         <textarea rows="5" onChange={this.handleFormChange} />
