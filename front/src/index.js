@@ -1,6 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import * as utils from './utils'
+import Form from './form'
+import uuid from 'uuid'
+
+const createColor = (label, value = '#000FFF') => ({ label, id: uuid(), value })
+const colorsOptions = [
+  createColor('Keyword'),
+  createColor('String'),
+  createColor('Number'),
+  createColor('Boolean!'),
+]
 class App extends React.Component {
   constructor () {
     super()
@@ -8,6 +18,7 @@ class App extends React.Component {
     this.state = {
       tokens: [],
       inputString: null,
+      colorOptions: colorsOptions,
     }
   }
   componentDidMount () {
@@ -26,12 +37,20 @@ class App extends React.Component {
       .getTokens(this.state.inputString)
       .then(tokens => this.setState({ tokens }))
   }
+
   render () {
     return (
       <div>
+
         <h1>Hello World!!</h1>
-        <textarea rows='5' onChange={this.handleFormChange} />
-        <button type='submit' onClick={() => this.onColorizeClick()}>
+        {this.state.colorOptions.map(({ label, id }) => {
+          return (
+            <Form label={label} id={id} key={id} />
+            )
+        })
+        }
+        <textarea rows="5" onChange={this.handleFormChange} />
+        <button type="submit" onClick={() => this.onColorizeClick()}>
           COLOR
         </button>
         <pre>
