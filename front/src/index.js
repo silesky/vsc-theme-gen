@@ -6,10 +6,10 @@ import uuid from 'uuid'
 
 const createColor = (label, color = '#000FFF') => ({ label, id: uuid(), color })
 const initialColors = [
-  createColor('Keyword'),
-  createColor('String'),
-  createColor('Number'),
-  createColor('Boolean!'),
+  createColor('Keyword', undefined, ['keyword', 'modifier', 'variable.language.this', 'support.type.object', 'constant.language']),
+  createColor('String', undefined, ['string']),
+  createColor('Number', undefined, ['constant.numeric'] ),
+  createColor('Boolean!', undefined, ['constant.language.boolean']),
 ]
 class App extends React.Component {
   constructor () {
