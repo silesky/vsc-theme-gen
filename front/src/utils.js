@@ -7,9 +7,9 @@ import config from './config'
 export const scopesToClasses = scopes =>
   scopes
     .join(' ')
-    .replace(/.js/gi, '') // remove , .js
+    .replace('js', '')
     .replace('source', '') // remove 'source'
-    .replace(/\./g, '-')
+    .replace(/\./g, ' ')
     .trim() // get rid of leading and trailing spaces, but not space between
 
 export const getTokens = code => {
@@ -23,7 +23,7 @@ export const getTokens = code => {
   }
   return fetch(`${config.server}/api/tokenize`, fetchData)
     .then(res => res.json())
-    .then(res => res.data.map(el => ({ ...el, classNames: scopesToClasses(el.scopes) }))
+    .then(res => res.data.map(el => ({ ...el, scopes: el.scopes, classNames: scopesToClasses(el.scopes) }))
     )
 }
 

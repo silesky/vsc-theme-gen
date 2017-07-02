@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import * as utils from './utils'
 import Form from './form'
 import uuid from 'uuid'
-
+import styled from 'styled-components'
 const createColor = (label, id = uuid(), color = '#000FFF', tokens) => ({ label, id, color, tokens })
 const initialColors = [
   createColor('Keyword', undefined, undefined, [ 'keyword', 'modifier', 'variable.language.this', 'support.type.object', 'constant.language' ]),
@@ -40,7 +40,7 @@ class App extends React.Component {
   changeColor (id, event) {
     const newColor = event.target.value
     console.log('id', id, 'newColor', newColor)
-    const newColors = this.state.colorOptions.map(el => 
+    const newColors = this.state.colorOptions.map(el =>
       (el.id === id) ? { ...el, color: newColor } : el
     )
     console.log(newColors)
@@ -48,6 +48,9 @@ class App extends React.Component {
   }
 
   render () {
+    const Word = styled.span`
+      color: 'red';
+    `
     return (
       <div>
         <h1>VSCode Theme Color Generator</h1>
@@ -63,7 +66,7 @@ class App extends React.Component {
         </button>
         <pre>
           {this.state.tokens.map(({ classNames, code }, ind) => {
-            return <span key={ind} className={classNames}>{code}</span>
+            return <Word key={ind} className={classNames}>{code}</Word>
           })}
         </pre>
       </div>
