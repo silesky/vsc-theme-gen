@@ -17,6 +17,7 @@ module.exports = {
   devServer: {
     publicPath: '/dist/', // webpack needs to know where you'll host the generated bundle
     inline: true, // uses an IFrame (so localhost:__/index.html will just work
-    port: 3001 // hot reloading seems to break autoreload/compile
-  }
+    port: 3001, // hot reloading seems to break autoreload/compile
+  },
+  devtool: 'source-map',
 }

@@ -9,6 +9,7 @@ export const scopesToClasses = scopes =>
     .join(' ')
     .replace(/.js/gi, '') // remove , .js
     .replace('source', '') // remove 'source'
+    .replace(/\./g, '-')
     .trim() // get rid of leading and trailing spaces, but not space between
 
 export const getTokens = code => {
@@ -22,10 +23,7 @@ export const getTokens = code => {
   }
   return fetch(`${config.server}/api/tokenize`, fetchData)
     .then(res => res.json())
-    .then(res => {
-      return res.data.map(el => {
-        el.classNames = scopesToClasses(el.scopes)
-        return el
-      })
-    })
+    .then(res => res.data.map(el => ({ ...el, classNames: scopesToClasses(el.scopes) }))
+    )
 }
+
