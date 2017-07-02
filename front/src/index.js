@@ -6,10 +6,10 @@ import uuid from 'uuid'
 
 const createColor = (label, color = '#000FFF') => ({ label, id: uuid(), color })
 const initialColors = [
-  createColor('Keyword', undefined, ['keyword', 'modifier', 'variable.language.this', 'support.type.object', 'constant.language']),
-  createColor('String', undefined, ['string']),
-  createColor('Number', undefined, ['constant.numeric'] ),
-  createColor('Boolean!', undefined, ['constant.language.boolean']),
+  createColor('Keyword', undefined, [ 'keyword', 'modifier', 'variable.language.this', 'support.type.object', 'constant.language' ]),
+  createColor('String', undefined, [ 'string' ]),
+  createColor('Number', undefined, [ 'constant.numeric' ]),
+  createColor('Boolean!', undefined, [ 'constant.language.boolean' ]),
 ]
 class App extends React.Component {
   constructor () {
@@ -41,11 +41,8 @@ class App extends React.Component {
     const newColor = event.target.value
     console.log('newColor', newColor)
     const newColors = this.state.colorOptions.map((el) => {
-      if (el.id === id) {
-        el.color = newColor
-      }
-      return el
-    });
+      if (el.id === id) return { ...el, color: newColor }
+    })
     this.setState({ colorOptions: newColors })
   }
 
