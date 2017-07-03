@@ -23,7 +23,7 @@ export const getTokens = code => {
   }
   return fetch(`${config.server}/api/tokenize`, fetchData)
     .then(res => res.json())
-    .then(res => res.data.map(el => ({ ...el, scopes: el.scopes, classNames: scopesToClasses(el.scopes) }))
+    .then(res => res.data.map(el => ({ ...el, scope: el.scopes, classNames: scopesToClasses(el.scopes) }))
     )
 }
 

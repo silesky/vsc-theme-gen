@@ -4,12 +4,21 @@ import * as utils from './utils'
 import Form from './form'
 import uuid from 'uuid'
 import styled from 'styled-components'
-const createColor = (label, id = uuid(), color = '#000FFF', tokens) => ({ label, id, color, tokens })
+
+const defaultColor = '#0000FF'
+const createColor = (label, tokens, initialColor = defaultColor) =>
+  ({ label, tokens, color: initialColor, id: uuid() })
+
 const initialColors = [
-  createColor('Keyword', undefined, undefined, [ 'keyword', 'modifier', 'variable.language.this', 'support.type.object', 'constant.language' ]),
-  createColor('String', undefined, undefined, [ 'string' ]),
-  createColor('Number', undefined, undefined, [ 'constant.numeric' ]),
-  createColor('Boolean!', undefined, undefined, [ 'constant.language.boolean' ]),
+  createColor('Keyword', [ 'keyword', 'modifier', 'variable.language.this', 'support.type.object', 'constant.language' ]),
+  createColor('Constant'),
+  createColor('String', [ 'string' ]),
+  createColor('Number', [ 'constant.numeric' ]),
+  createColor('Boolean', [ 'constant.language.boolean' ]),
+  createColor('Punctuation'),
+  createColor('Function-call'), // e.g.
+  createColor('Function'), // literal keyword
+  createColor('Type'), // e.g. 'var, let, const'
 ]
 class App extends React.Component {
   constructor () {
@@ -22,7 +31,7 @@ class App extends React.Component {
     }
   }
   componentDidMount () {
-    const defaultVal = `console.log('hi')`
+    const defaultVal = utils.getTokens.toString()
     utils
       .getTokens(defaultVal)
       .then(tokens => this.setState({ inputString: defaultVal, tokens }))
@@ -38,18 +47,31 @@ class App extends React.Component {
       .then(tokens => this.setState({ tokens }))
   }
   changeColor (id, event) {
+    console.log(this.state.colorOptions)
     const newColor = event.target.value
-    console.log('id', id, 'newColor', newColor)
     const newColors = this.state.colorOptions.map(el =>
       (el.id === id) ? { ...el, color: newColor } : el
     )
-    console.log(newColors)
     this.setState({ colorOptions: newColors })
   }
 
+  whichColor (classNames) {
+    const findColorByLabel = (label = 'String') => {
+      // take each word's classNames and see if it contains a label (i.e. 'string'). If it does, grab the color that matches thart
+      const foundColor = this.state.colorOptions.find(el => el.label === label).color
+      return (classNames.toLowerCase().match(label.toLowerCase())) ? foundColor : false
+    }
+    const labels = this.state.colorOptions.map(({ label }) => label)
+    const color = labels
+      .map(l => findColorByLabel(l))
+      .filter(l => l)[0]
+    return color
+  }
+  // e.g. takes "string.quoted.single.js" and returns a color
+
   render () {
     const Word = styled.span`
-      color: 'red';
+      color: ${props => this.whichColor(props.className)}
     `
     return (
       <div>
@@ -65,8 +87,8 @@ class App extends React.Component {
           COLOR
         </button>
         <pre>
-          {this.state.tokens.map(({ classNames, code }, ind) => {
-            return <Word key={ind} className={classNames}>{code}</Word>
+          {this.state.tokens.map(({ classNames, code, scope }, ind) => {
+            return <Word key={ind} className={classNames} scope={scope}>{code}</Word>
           })}
         </pre>
       </div>

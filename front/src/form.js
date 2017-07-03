@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Form = ({ label, color, handleChangeColor }) => {
-  console.log('curentColor', color)
   return (
     <div>
       <form>
